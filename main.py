@@ -102,9 +102,19 @@ def adicionar():
 
 	botao_deletar = Button(frame_detalhes, anchor=CENTER, text="Deletar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
 	botao_deletar.place(x=327, y=145)
+
+
+
+
+
+
+
+
+
+	#--------------------------------------------PARTE COM ERRO-----------------------------------------------------------
 	
 	def mostrar_personais():
-		app_nome = Label(frame_tabela_curso, text="Tabela de Personais", height=1,pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
+		app_nome = Label(frame_tabela_personais, text="Tabela de Personais", height=1,pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
 		app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
 		
 		# creating a treeview with dual scrollbars
@@ -112,20 +122,20 @@ def adicionar():
 
 		df_list = []
 
-		global tree_personais
+		global tree_personal
 
-		tree_personais = ttk.Treeview(frame_tabela_curso, selectmode="extended",columns=list_header, show="headings")
+		tree_personais = ttk.Treeview(frame_tabela_personais, selectmode="extended",columns=list_header, show="headings")
 
  		# vertical scrollbar
-		vsb = ttk.Scrollbar(frame_tabela_curso, orient="vertical", command=tree_personal.yview)
+		vsb = ttk.Scrollbar(frame_tabela_personais, orient="vertical", command=tree_personal.yview)
 		# horizontal scrollbar
-		hsb = ttk.Scrollbar(frame_tabela_curso, orient="horizontal", command=tree_personal.xview)
+		hsb = ttk.Scrollbar(frame_tabela_personais, orient="horizontal", command=tree_personal.xview)
 
 		tree_personal.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 		tree_personal.grid(column=0, row=1, sticky='nsew')
 		vsb.grid(column=1, row=1, sticky='ns')
 		hsb.grid(column=0, row=2, sticky='ew')
-		frame_tabela_curso.grid_rowconfigure(0, weight=12)
+		frame_tabela_personais.grid_rowconfigure(0, weight=12)
 
 		hd=["nw","nw","e","e"]
 		h=[30,150,80,60]
@@ -134,14 +144,18 @@ def adicionar():
 		for col in list_header:
    			tree_personal.heading(col, text=col.title(), anchor=NW)
    			# adjust the column's width to the header string
-   			tree_personal.column(col, width=h[n],anchor=hd[n])
-
+			tree_personal.column(col, width=h[n],anchor=hd[n])
    			n+=1
 
 		for item in df_list:
    			tree_personais.insert('', 'end', values=item)
 
 	mostrar_personais()
+
+
+
+
+    #---------------------------------------FIM DA PARTE COM ERRO---------------------------------------------------------
 
 
 #Funcao para Salvar
