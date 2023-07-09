@@ -122,34 +122,34 @@ def adicionar():
 
 		df_list = []
 
-		global tree_personal
+		global tree_personais
 
-		tree_personais = ttk.Treeview(frame_tabela_personais, selectmode="extended",columns=list_header, show="headings")
+		tree_personais = ttk.Treeview(frame_tabela_personais, selectmode="extended", columns=list_header, show="headings")
 
  		# vertical scrollbar
-		vsb = ttk.Scrollbar(frame_tabela_personais, orient="vertical", command=tree_personal.yview)
+		vsb = ttk.Scrollbar(frame_tabela_personais, orient="vertical", command=tree_personais.yview)
 		# horizontal scrollbar
-		hsb = ttk.Scrollbar(frame_tabela_personais, orient="horizontal", command=tree_personal.xview)
+		hsb = ttk.Scrollbar(frame_tabela_personais, orient="horizontal", command=tree_personais.xview)
 
-		tree_personal.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-		tree_personal.grid(column=0, row=1, sticky='nsew')
+		tree_personais.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+		tree_personais.grid(column=0, row=1, sticky='nsew')
 		vsb.grid(column=1, row=1, sticky='ns')
 		hsb.grid(column=0, row=2, sticky='ew')
 		frame_tabela_personais.grid_rowconfigure(0, weight=12)
 
-		hd=["nw","nw","e","e"]
-		h=[30,150,80,60]
-		n=0
-
+		hd = ["nw","nw","e","e"]
+		h = [30,150,80,60]
+		n = 0
+ 
 		for col in list_header:
-   			tree_personal.heading(col, text=col.title(), anchor=NW)
+   			tree_personais.heading(col, text=col.title(), anchor=NW)
    			# adjust the column's width to the header string
-			tree_personal.column(col, width=h[n],anchor=hd[n])
-   			n+=1
+			tree_personais.column(col, width=h[n], anchor=hd[n])
+			n+=1
 
 		for item in df_list:
-   			tree_personais.insert('', 'end', values=item)
-
+			tree_personais.insert('', 'end', values=item)
+			
 	mostrar_personais()
 
 
@@ -217,17 +217,18 @@ app_img_adicionar = Image.open('add.png')
 app_img_adicionar = app_img_adicionar.resize((18,18))
 app_img_adicionar = ImageTk.PhotoImage(app_img_adicionar)
 app_adicionar = Button(frame_dados, command=lambda:control('adicionar'), image=app_img_adicionar, text=" Adicionar", width=100, compound=LEFT, overrelief=RIDGE, font=('Ivy 11'), bg=co1, fg=co0)
-app_adicionar.place(x=140, y=30)
+app_adicionar.place(x=120, y=30)
 
 #Deletar
 app_img_salvar = Image.open('save.png')
 app_img_salvar = app_img_salvar.resize((18,18))
 app_img_salvar = ImageTk.PhotoImage(app_img_salvar)
 app_salvar = Button(frame_dados, command=lambda:control('salvar'), image=app_img_salvar, text=" Salvar", width=100, compound=LEFT, overrelief=RIDGE, font=('Ivy 11'), bg=co1, fg=co0)
-app_salvar.place(x=270, y=30)
+app_salvar.place(x=230, y=30)
 
 
 
 
 # Executando a janela
 janela.mainloop()
+ 
