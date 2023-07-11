@@ -52,8 +52,6 @@ frame_detalhes.grid(row=4, column=0, pady=0, padx=10, sticky=NSEW)
 frame_tabela = Frame(janela, width=850, height=200, bg=co1)
 frame_tabela.grid(row=5, column=0, pady=0, padx=10, sticky=NSEW)
 
-
-
 #FRAME LOGO ------------------------------------------------------------------------
 app_lg = Image.open('logo.png')
 app_lg = app_lg.resize((70,50))
@@ -64,7 +62,175 @@ app_logo.place(x=10, y=0)
 
 #Funcao para cadastrar Clientes
 def cadastrar():
-	print('Clientes')
+
+	# INPUT TIPO TEXTO
+
+	l_nome = Label(frame_detalhes, text="Nome do Cliente: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_nome.place(x=7, y=10)
+	enome_cliente = Entry(frame_detalhes, width=35, justify='left', relief='solid')
+	enome_cliente.place(x=7, y=30)
+
+	l_cpf = Label(frame_detalhes, text="Numero do CPF: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_cpf.place(x=7, y=100)
+	ecpf = Entry(frame_detalhes, width=15, justify='left', relief='solid')
+	ecpf.place(x=7, y=120)
+
+	l_telefone = Label(frame_detalhes, text="Contato: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_telefone.place(x=150, y=100)
+	etelefone = Entry(frame_detalhes, width=15, justify='left', relief='solid')
+	etelefone.place(x=153, y=120)
+
+	l_endereco = Label(frame_detalhes, text="Endereço: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_endereco.place(x=7, y=55)
+	eendereco = Entry(frame_detalhes, width=35, justify='left', relief='solid')
+	eendereco.place(x=7, y=75)
+
+
+	# INPUT TIPO CALENDÁRIO
+	l_datanasc = Label(frame_detalhes, text="Nascimento: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_datanasc.place(x=7, y=150)
+	edata_nascimento = DateEntry(frame_detalhes, width=10, background='darkblue', foreground='white', borderwidht=2, year=2020)
+	edata_nascimento.place(x=7, y=170)
+
+
+	l_data_inicio = Label(frame_detalhes, text="Data de Início: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_data_inicio.place(x=150, y=150)
+	edata_inicio_clienter = DateEntry(frame_detalhes, width=10, background='darkblue', foreground='white', borderwidht=2, year=2020)
+	edata_inicio_clienter.place(x=150, y=170)
+
+	# INPUT TIPO SELETOR
+
+	l_personalnome = Label(frame_detalhes, text="Personal: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_personalnome.place(x=270, y=160)
+
+	#PEGANDO OS PERSONAIS
+	personais = ["Oscar", "Rafael"]
+	personal = []
+
+	for i in personais:
+		personal.append(i)
+
+	epersonal_nome = ttk.Combobox(frame_detalhes, width=15, font=('Ivy 8 bold'))
+	epersonal_nome['values'] = (personal)
+	epersonal_nome.place(x=270, y=180)
+
+
+	l_turmasnome = Label(frame_detalhes, text="Turma: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_turmasnome.place(x=400, y=160)
+
+
+	turmas = ["teste", "teste"]
+	turmas = []
+
+	for i in turmas:
+		turma.append(i)
+
+	eturmas_nome = ttk.Combobox(frame_detalhes, width=15, font=('Ivy 8 bold'))
+	eturmas_nome['values'] = (personal)
+	eturmas_nome.place(x=400, y=180)
+
+
+	# INPUT TIPO NUMEROS REAIS
+
+
+	# INPUT TIPO NUMEROS INTEIROS
+
+
+
+	# Botões de Salvar, Editar e Deletar
+	botao_salvarcliente = Button(frame_detalhes, anchor=CENTER, text="Salvar".upper(), width=20, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
+	botao_salvarcliente.place(x=630, y=120)
+
+
+	botao_atualizarcliente = Button(frame_detalhes, anchor=CENTER, text="Pesquisar".upper(), width=20, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
+	botao_atualizarcliente.place(x=630, y=145)
+
+
+	botao_deletarcliente = Button(frame_detalhes, anchor=CENTER, text="Deletar".upper(), width=20, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
+	botao_deletarcliente.place(x=630, y=170)
+
+	botao_vercliente = Button(frame_detalhes, anchor=CENTER, text="Ver".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co8, fg=co1)
+	botao_vercliente.place(x=600, y=70)
+
+	#INPUT CARREGAR FOTO
+
+	global imagem, Imagem_String, l_imagem
+
+	def escolher_imagem():
+
+		global imagem, Imagem_String, l_imagem
+
+		imagem = fd.askopenfilename()
+		Imagem_String = imagem
+
+		# Abrindo Imagem
+		imagem = Image.open(imagem)
+		imagem = imagem.resize((120,120))
+		imagem = ImageTk.PhotoImage(imagem)
+		l_imagem = Label(frame_detalhes, image=imagem)
+		l_imagem.place(x=325,y=5)
+
+		app_upload['text'] = 'Trocar de foto'
+	
+	app_upload = Button(frame_detalhes, command=escolher_imagem, text="Enviar Imagem".upper(), width=20, compound=CENTER, anchor=CENTER, overrelief=RIDGE, font=('Ivy 7'), bg=co1, fg=co0)
+	app_upload.place(x=318, y=130)
+
+	
+	# Linha Divisória
+	l_linha = Label(frame_detalhes, relief=GROOVE, text='h', width=1, height=100, anchor=NW, font=('Ivy 1'), bg=co0, fg=co0)
+	l_linha.place(x=570, y=10)
+
+	l_linha = Label(frame_detalhes, relief=GROOVE, text='h', width=1, height=100, anchor=NW, font=('Ivy 1'), bg=co1, fg=co0)
+	l_linha.place(x=569, y=10)
+
+	l_nome = Label(frame_detalhes, text="Buscar Cliente: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+	l_nome.place(x=600, y=10)
+	enome_personal = Entry(frame_detalhes, width=25, justify='left', relief='solid')
+	enome_personal.place(x=600, y=35)
+
+	botao_ver = Button(frame_detalhes, anchor=CENTER, text="Pesquisar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co8, fg=co1)
+	botao_ver.place(x=720, y=70)
+
+
+	# Tabela Alunos
+	def mostrar_clientes():
+		app_nome = Label(frame_tabela, text="Tabela de estudantes", height=1,pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
+		app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
+
+		# creating a treeview with dual scrollbars
+		list_header = ['id','Nome','Endereço',  'CPF','Contato', 'Imagem', 'Dt Nasc', 'Dt Inicio','Personal', 'Turma']
+
+		df_list = []
+
+		global tree_personal
+
+		tree_cliente = ttk.Treeview(frame_tabela, selectmode="extended",columns=list_header, show="headings")
+
+		# vertical scrollbar
+		vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_cliente.yview)
+		# horizontal scrollbar
+		hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_cliente.xview)
+
+		tree_cliente.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+		tree_cliente.grid(column=0, row=1, sticky='nsew')
+		vsb.grid(column=1, row=1, sticky='ns')
+		hsb.grid(column=0, row=2, sticky='ew')
+		frame_tabela.grid_rowconfigure(0, weight=12)
+		
+		hd=["nw","nw","nw","center","center","center","center","center","center","center"]
+		h=[40,150,150,60,60,60,60,80,100,60]
+		n=0
+		
+		for col in list_header:
+   			tree_cliente.heading(col, text=col.title(), anchor=NW)
+   			tree_cliente.column(col, width=h[n],anchor=hd[n])
+   			n+=1
+
+		for item in df_list:
+			tree_cliente.insert('', 'end', values=item)
+	
+	mostrar_clientes()
+
 
 #Funcao para adicionar Personais e Turmas
 def adicionar():
@@ -85,7 +251,6 @@ def adicionar():
 	enome_personal = Entry(frame_detalhes, width=35, justify='left', relief='solid')
 	enome_personal.place(x=7, y=35)
 
-
 	l_sobrenome = Label(frame_detalhes, text="Descriçao do(a) Personal(Informações Extras): ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_sobrenome.place(x=7, y=65)
 	esobrenome_personal = Entry(frame_detalhes, width=35, justify='left', relief='solid')
@@ -97,7 +262,6 @@ def adicionar():
 	epreco_personal.place(x=7, y=145)
 
 	#BOTÕES
-
 	botao_carregar = Button(frame_detalhes, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
 	botao_carregar.place(x=117, y=145)
 
@@ -148,7 +312,6 @@ def adicionar():
 	mostrar_personais()
 
 	#Linha divisória-------------------
-
 	l_linha = Label(frame_detalhes, relief=GROOVE, text='h', width=1, height=100, anchor=NW, font=('Ivy 1'), bg=co0, fg=co0)
 	l_linha.place(x=459, y=10)
 
@@ -157,7 +320,6 @@ def adicionar():
 
 
 	#Linha divisória tabela-------------------
-
 	l_linha = Label(frame_tabela_divisao, relief=GROOVE, text='h', width=1, height=100, anchor=NW, font=('Ivy 1'), bg=co0, fg=co0)
 	l_linha.place(x=1, y=10)
 
@@ -166,8 +328,6 @@ def adicionar():
 
 
 	#Detalhes das Turmas INPUTS
-
-
 	l_nome_turma = Label(frame_detalhes, text="Nome da Turma: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_nome_turma.place(x=480, y=10)
 	enome_turma = Entry(frame_detalhes, width=35, justify='left', relief='solid')
@@ -188,7 +348,6 @@ def adicionar():
 	epersonal_nome['values'] = (personal)
 	epersonal_nome.place(x=480, y=90)
 
-
 	l_datainicio = Label(frame_detalhes, text="Data de Início: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_datainicio.place(x=480, y=120)
 	edata_inicio = DateEntry(frame_detalhes, width=10, background='darkblue', foreground='white', borderwidht=2, year=2020)
@@ -196,7 +355,6 @@ def adicionar():
 
 
 	# Botões
-
 	botao_carregar_turmas = Button(frame_detalhes, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
 	botao_carregar_turmas.place(x=610, y=125)
 
@@ -205,8 +363,6 @@ def adicionar():
 
 	botao_deletar_turmas = Button(frame_detalhes, anchor=CENTER, text="Deletar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
 	botao_deletar_turmas.place(x=665, y=160)
-
-
 
 
 	def mostrar_turmas():
@@ -314,7 +470,7 @@ app_img_salvar = ImageTk.PhotoImage(app_img_salvar)
 app_salvar = Button(frame_dados, command=lambda:control('salvar'), image=app_img_salvar, text=" Salvar", width=100, compound=LEFT, overrelief=RIDGE, font=('Ivy 11'), bg=co1, fg=co0)
 app_salvar.place(x=270, y=30)
 
-
+cadastrar()
 # Executando a janela
 janela.mainloop()
  
