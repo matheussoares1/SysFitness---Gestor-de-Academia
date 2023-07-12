@@ -13,6 +13,10 @@ from tkcalendar import Calendar, DateEntry
 from datetime import date
 
 
+# IMportando VIew
+
+from view import *
+
 # cores
 co0 = "#2e2d2b"  # Preta
 co1 = "#feffff"  # Branca   
@@ -244,7 +248,35 @@ def adicionar():
 	frame_tabela_turmas = Frame(frame_tabela, width=320, height=200, bg=co1)
 	frame_tabela_turmas.grid(row=0, column=2, pady=0, padx=10, sticky=NSEW)
 
-	#Detalhes dos Personais inputs
+	#Detalhes dos Personais-----------------------------------------------------
+
+	#Funçao novo personal
+
+	def novo_personal():
+		nome = enome_personal.get()
+		descricao = esobrenome_personal.get()
+		preco = epreco_personal.get()
+
+		lista_personal = [nome, descricao, preco]
+
+		# Caso esteja vazio haverá uma tela de insereçao de ddos obrigatórios
+		for i in lista_personal:
+			if i=="":
+				messagebox.showerror('Erro', 'Preencha todos os campos.')
+				return
+
+		#Inserindo dados no banco de dados 
+		inserir_personais(lista_personal)
+
+		# Mostrando mensagem de sucesso
+		messagebox.showinfo('Sucesso', 'Dados inseridos com sucesso!')
+
+		enome_personal.delete(0,END)
+		esobrenome_personal.delete(0,END)
+		epreco_personal.delete(0,END)
+
+		# Mostrando os valores na tabela
+		mostrar_personais()
 
 	l_nome = Label(frame_detalhes, text="Nome do(a) Personal: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_nome.place(x=7, y=10)
@@ -262,7 +294,7 @@ def adicionar():
 	epreco_personal.place(x=7, y=145)
 
 	#BOTÕES
-	botao_carregar = Button(frame_detalhes, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
+	botao_carregar = Button(frame_detalhes,command=novo_personal, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
 	botao_carregar.place(x=117, y=145)
 
 	botao_atualizar = Button(frame_detalhes, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
@@ -279,7 +311,7 @@ def adicionar():
 		# creating a treeview with dual scrollbars
 		list_header = ['ID','Nome','Descrição','Preço']
 
-		df_list = []
+		df_list = ver_personais()
 
 		global tree_personais
 
