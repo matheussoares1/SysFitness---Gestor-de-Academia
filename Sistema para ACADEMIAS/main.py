@@ -278,6 +278,88 @@ def adicionar():
 		# Mostrando os valores na tabela
 		mostrar_personais()
 
+	#Atualizar Personal
+	def update_personal():
+		try:
+			tree_itens = tree_personais.focus()
+			tree_dicionario = tree_personais.item(tree_itens)
+			tree_lista = tree_dicionario['values']
+
+			valor_id = tree_lista[0]
+
+
+			# Inserindo os valores nas entries
+			enome_personal.insert(0, tree_lista[1])
+			esobrenome_personal.insert(0, tree_lista[2])
+			epreco_personal.insert(0, tree_lista[3])
+
+
+			#função atualizar
+			def update():
+
+
+				nome = enome_personal.get()
+				descricao = esobrenome_personal.get()
+				preco = epreco_personal.get()
+
+				lista_personal = [nome, descricao, preco, valor_id]
+
+				# Caso esteja vazio haverá uma tela de insereçao de ddos obrigatórios
+				for i in lista_personal:
+					if i=="":
+						messagebox.showerror('Erro', 'Preencha todos os campos.')
+						return
+
+				#Inserindo dados no banco de dados 
+				atualizar_personais(lista_personal)
+
+				# Mostrando mensagem de sucesso
+				messagebox.showinfo('Sucesso', 'Dados inseridos com sucesso!')
+
+				enome_personal.delete(0,END)
+				esobrenome_personal.delete(0,END)
+				epreco_personal.delete(0,END)
+
+				# Mostrando os valores na tabela
+				mostrar_personais()
+
+				#Destruindo o Botão Salvar após Salvar os dados
+				botao_salvar.destroy()
+
+
+			botao_salvar = Button(frame_detalhes,command=update, anchor=CENTER, text="Salvar Atualização".upper(), overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
+			botao_salvar.place(x=190, y=170)		
+
+		except IndexError:
+			messagebox.showerror('Erro', 'Selecione um dos personais na tabela')
+
+
+
+	#Deletar Personal
+	def delete_personal():
+		try:
+			tree_itens = tree_personais.focus()
+			tree_dicionario = tree_personais.item(tree_itens)
+			tree_lista = tree_dicionario['values']
+
+			valor_id = tree_lista[0]
+
+			#Deletando dados do banco de dados
+			deletar_personais([valor_id])
+
+			# Mostrando mensagem de sucesso
+			messagebox.showinfo('Sucesso', 'Dados deletados com sucesso!')
+
+			#mostrando os valores na tabela
+			mostrar_personais()
+
+		except IndexError:
+			messagebox.showerror('Erro', 'Selecione um dos personais para deletar')
+
+
+
+
+
 	l_nome = Label(frame_detalhes, text="Nome do(a) Personal: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_nome.place(x=7, y=10)
 	enome_personal = Entry(frame_detalhes, width=35, justify='left', relief='solid')
@@ -294,17 +376,19 @@ def adicionar():
 	epreco_personal.place(x=7, y=145)
 
 	#BOTÕES
-	botao_carregar = Button(frame_detalhes,command=novo_personal, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
+	botao_carregar = Button(frame_detalhes,command=novo_personal, anchor=CENTER, text="Inserir".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
 	botao_carregar.place(x=117, y=145)
 
-	botao_atualizar = Button(frame_detalhes, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
+	botao_atualizar = Button(frame_detalhes,command=update_personal, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
 	botao_atualizar.place(x=217, y=145)
 
-	botao_deletar = Button(frame_detalhes, anchor=CENTER, text="Deletar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
-	botao_deletar.place(x=327, y=145)
+	botao_deletar = Button(frame_detalhes,command=delete_personal, anchor=CENTER, text="Deletar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
+	botao_deletar.place(x=317, y=145)
 
 	
 	def mostrar_personais():
+
+
 		app_nome = Label(frame_tabela_personais, text="Tabela de Personais", height=1,pady=0, padx=0, relief="flat", anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
 		app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
 		
@@ -342,6 +426,9 @@ def adicionar():
 			tree_personais.insert('', 'end', values=item)
 			
 	mostrar_personais()
+
+
+
 
 	#Linha divisória-------------------
 	l_linha = Label(frame_detalhes, relief=GROOVE, text='h', width=1, height=100, anchor=NW, font=('Ivy 1'), bg=co0, fg=co0)
