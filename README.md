@@ -25,8 +25,9 @@ Para construção da Interface, foi usada a biblioteca integrada do próprio Pyt
 - [x] Criação da aplicação em formato `.run` e `.exe` tornando assim, a aplicação em executável.
 
 # Imagens
-![Adicione a legenda da imagem]
-(LInk imagem)
+![Crud 1](https://github.com/matheussoares1/SysFitness---Gestor-de-Academia/blob/main/IMAGENS/Cadastro%20de%20Clientes%20-%20Academia%20OscarFitness.png?raw=true)
+
+![Crud 2](https://github.com/matheussoares1/SysFitness---Gestor-de-Academia/blob/main/IMAGENS/Tela%20Sistema%20-%20Academia%20OscaFitness.png?raw=true)
 
 
 # Contribuidores
