@@ -1,3 +1,4 @@
+
 # importando dependencias do Tkinter
 from tkinter.ttk import *
 from tkinter import*
@@ -357,9 +358,6 @@ def adicionar():
 			messagebox.showerror('Erro', 'Selecione um dos personais para deletar')
 
 
-
-
-
 	l_nome = Label(frame_detalhes, text="Nome do(a) Personal: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_nome.place(x=7, y=10)
 	enome_personal = Entry(frame_detalhes, width=35, justify='left', relief='solid')
@@ -447,6 +445,39 @@ def adicionar():
 
 
 	#Detalhes das Turmas INPUTS
+
+
+
+	def nova_turma():
+
+		nome = enome_turma.get()
+		personall = epersonal_nome.get()
+		data = edata_inicio.get()
+
+		lista_personal = [nome, personall, data]
+
+		# Caso esteja vazio haverá uma tela de insereçao de ddos obrigatórios
+		for i in lista_personal:
+			if i=="":
+				messagebox.showerror('Erro', 'Preencha todos os campos.')
+				return
+
+		#Inserindo dados no banco de dados 
+		criar_turmas(lista_personal)
+
+		# Mostrando mensagem de sucesso
+		messagebox.showinfo('Sucesso', 'Dados inseridos com sucesso!')
+
+		enome_turma.delete(0,END)
+		epersonal_nome.delete(0,END)
+		edata_inicio.delete(0,END)
+
+		# Mostrando os valores na tabela
+		mostrar_turmas()
+
+
+
+
 	l_nome_turma = Label(frame_detalhes, text="Nome da Turma: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_nome_turma.place(x=480, y=10)
 	enome_turma = Entry(frame_detalhes, width=35, justify='left', relief='solid')
@@ -457,11 +488,11 @@ def adicionar():
 	l_personalnome.place(x=480, y=65)
 
 	#PEGANDO OS PERSONAIS
-	personais = ["Oscar", "Rafael"]
+	personais = ver_personais()
 	personal = []
 
 	for i in personais:
-		personal.append(i)
+		personal.append(i[1])
 
 	epersonal_nome = ttk.Combobox(frame_detalhes, width=20, font=('Ivy 8 bold'))
 	epersonal_nome['values'] = (personal)
@@ -474,7 +505,7 @@ def adicionar():
 
 
 	# Botões
-	botao_carregar_turmas = Button(frame_detalhes, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
+	botao_carregar_turmas = Button(frame_detalhes, command=nova_turma, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
 	botao_carregar_turmas.place(x=610, y=125)
 
 	botao_atualizar_turmas = Button(frame_detalhes, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
@@ -491,7 +522,7 @@ def adicionar():
 		# creating a treeview with dual scrollbars
 		list_header = ['ID','Nome','Personal','Início']
 
-		df_list = []
+		df_list = ver_turmas()
 
 		global tree_turmas
 
