@@ -534,6 +534,31 @@ def adicionar():
 
 
 
+	#Deletar Personal
+	def delete_turma():
+		try:
+			tree_itens = tree_turmas.focus()
+			tree_dicionario = tree_turmas.item(tree_itens)
+			tree_lista = tree_dicionario['values']
+
+			valor_id = tree_lista[0]
+
+			#Deletando dados do banco de dados
+			deletar_turmas([valor_id])
+
+			# Mostrando mensagem de sucesso
+			messagebox.showinfo('Sucesso', 'Dados deletados com sucesso!')
+
+			#mostrando os valores na tabela
+			mostrar_turmas()
+
+		except IndexError:
+			messagebox.showerror('Erro', 'Selecione um dos personais para deletar')
+
+
+
+
+
 	l_nome_turma = Label(frame_detalhes, text="Nome da Turma: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_nome_turma.place(x=480, y=10)
 	enome_turma = Entry(frame_detalhes, width=35, justify='left', relief='solid')
@@ -567,7 +592,7 @@ def adicionar():
 	botao_atualizar_turmas = Button(frame_detalhes,command=update_turma, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
 	botao_atualizar_turmas.place(x=720, y=125)
 
-	botao_deletar_turmas = Button(frame_detalhes, anchor=CENTER, text="Deletar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
+	botao_deletar_turmas = Button(frame_detalhes,command=delete_turma, anchor=CENTER, text="Deletar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
 	botao_deletar_turmas.place(x=665, y=160)
 
 
