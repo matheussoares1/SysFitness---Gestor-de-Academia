@@ -477,6 +477,62 @@ def adicionar():
 
 
 
+	#Atualizar Turma
+	def update_turma():
+		try:
+			tree_itens = tree_turmas.focus()
+			tree_dicionario = tree_turmas.item(tree_itens)
+			tree_lista = tree_dicionario['values']
+
+			valor_id = tree_lista[0]
+
+
+			# Inserindo os valores nas entries
+			enome_turma.insert(0, tree_lista[1])
+			epersonal_nome.insert(0, tree_lista[2])
+			edata_inicio.insert(0, tree_lista[3])
+
+
+			#função atualizar
+			def update():
+
+
+				nome = enome_turma.get()
+				personal = epersonal_nome.get()
+				data = edata_inicio.get()
+
+				lista_personal = [nome, personal, data, valor_id]
+
+				# Caso esteja vazio haverá uma tela de insereçao de ddos obrigatórios
+				for i in lista_personal:
+					if i=="":
+						messagebox.showerror('Erro', 'Preencha todos os campos.')
+						return
+
+				#Inserindo dados no banco de dados 
+				atualizar_turmas(lista_personal)
+
+				# Mostrando mensagem de sucesso
+				messagebox.showinfo('Sucesso', 'Dados inseridos com sucesso!')
+
+				enome_turma.delete(0,END)
+				epersonal_nome.delete(0,END)
+				edata_inicio.delete(0,END)
+
+				# Mostrando os valores na tabela
+				mostrar_turmas()
+
+				#Destruindo o Botão Salvar após Salvar os dados
+				botao_salvar_turma.destroy()
+
+
+			botao_salvar_turma = Button(frame_detalhes,command=update, anchor=CENTER, text="Salvar Atualização".upper(), overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
+			botao_salvar_turma.place(x=650, y=95)		
+
+		except IndexError:
+			messagebox.showerror('Erro', 'Selecione um dos personais na tabela')
+
+
 
 	l_nome_turma = Label(frame_detalhes, text="Nome da Turma: ", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
 	l_nome_turma.place(x=480, y=10)
@@ -508,7 +564,7 @@ def adicionar():
 	botao_carregar_turmas = Button(frame_detalhes, command=nova_turma, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
 	botao_carregar_turmas.place(x=610, y=125)
 
-	botao_atualizar_turmas = Button(frame_detalhes, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
+	botao_atualizar_turmas = Button(frame_detalhes,command=update_turma, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
 	botao_atualizar_turmas.place(x=720, y=125)
 
 	botao_deletar_turmas = Button(frame_detalhes, anchor=CENTER, text="Deletar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co7, fg=co1)
