@@ -40,7 +40,7 @@ def atualizar_personais(i):
 
 		cur.execute(query, i)
 
-l = ['Oscar', 'Paulino', 45.0, 1]
+
 #atualizar_personais(l)
 
 #print(ver_personais())
@@ -63,7 +63,7 @@ def deletar_personais(i):
 def criar_turmas(i):
 	with conn:
 		cur = conn.cursor()
-		query = "INSERT INTO personais (nome, personal_nome, data_inicio) VALUES (?,?,?,?)"
+		query = "INSERT INTO personais (nome, personal_nome, data_inicio) VALUES (?,?,?)"
 
 		cur.execute(query, i)
 
