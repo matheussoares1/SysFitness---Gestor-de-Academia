@@ -446,15 +446,13 @@ def adicionar():
 
 	#Detalhes das Turmas INPUTS
 
-
-
-	def nova_turma():
+	def inserindo_turma():
 
 		nome = enome_turma.get()
-		personall = epersonal_nome.get()
+		personal = epersonal_nome.get()
 		data = edata_inicio.get()
 
-		lista_personal = [nome, personall, data]
+		lista_personal = [nome, personal, data]
 
 		# Caso esteja vazio haverá uma tela de insereçao de ddos obrigatórios
 		for i in lista_personal:
@@ -475,6 +473,9 @@ def adicionar():
 		# Mostrando os valores na tabela
 		mostrar_turmas()
 
+
+
+	
 
 
 	#Atualizar Turma
@@ -586,7 +587,7 @@ def adicionar():
 
 
 	# Botões
-	botao_carregar_turmas = Button(frame_detalhes, command=nova_turma, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
+	botao_carregar_turmas = Button(frame_detalhes, command=inserindo_turma, anchor=CENTER, text="Salvar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co3, fg=co1)
 	botao_carregar_turmas.place(x=610, y=125)
 
 	botao_atualizar_turmas = Button(frame_detalhes,command=update_turma, anchor=CENTER, text="Atualizar".upper(), width=10, overrelief=RIDGE, font=('Ivy 7 bold'), bg=co6, fg=co1)
